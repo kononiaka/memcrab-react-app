@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./Table.css";
 import { connect } from "react-redux";
-import { initTable } from "../../actions/tableActions";
+import { initTable, incCell } from "../../actions/tableActions";
 
 class Table extends Component {
   componentDidMount() {
@@ -9,12 +9,16 @@ class Table extends Component {
   }
 
   render() {
-    const { table, rowTotals, colAvgs } = this.props;
+    const { table, rowTotals, colAvgs, incCell } = this.props;
     const tableRows = [];
     table.forEach((row, i) => {
       const cells = row.map(({ id, amount }) => {
         return (
-          <td key={id} className="Table-cell">
+          <td
+            onClick={() => incCell(id)}
+            key={id}
+            data-id={id}
+            className="Table-cell">
             {amount}
           </td>
         );
@@ -56,6 +60,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     initTable: () => dispatch(initTable()),
+    incCell: id => dispatch(incCell(id)),
   };
 };
 

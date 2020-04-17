@@ -1,5 +1,6 @@
 .Table-cell {
   border: 1px solid black;
+  cursor: pointer;
 }
 .Table-cell-total {
   font-weight: bold;

@@ -1,3 +1,5 @@
+import { cloneDeep } from "lodash";
+
 const randomInteger = (min, max) => {
   let rand = min + Math.random() * (max + 1 - min);
   return Math.floor(rand);
@@ -24,27 +26,53 @@ const makeCell = () => ({
 const calcRowTotals = table =>
   table.map(row => row.reduce((total, { amount }) => total + amount, 0));
 
-const calcColAvgs = table =>
-  table
-    .map((_, index) =>
-      table.reduce((total, row) => total + row[index].amount, 0)
-    )
-    .map(num => num / table[0].length)
-    .map(Math.round);
+const calcColAvgs = table => {
+  const colAvgs = [];
+  const colCount = table[0].length;
+  const rowCount = table.length;
+
+  for (let i = 0; i < colCount; i++) {
+    let total = 0;
+    for (let row of table) {
+      total += row[i].amount;
+    }
+    const avg = Math.round(total / rowCount);
+    colAvgs.push(avg);
+  }
+
+  console.log(colAvgs);
+  return colAvgs;
+};
+
+const makeRow = cellCount => {
+  const row = [];
+
+  for (let x = 0; x < cellCount; x++) {
+    const cell = makeCell();
+    row.push(cell);
+  }
+
+  return row;
+};
 
 const makeTable = (rowCount, colCount) => {
   const table = [];
 
   for (let y = 0; y < rowCount; y++) {
-    const row = [];
-    for (let x = 0; x < colCount; x++) {
-      const cell = makeCell();
-      row.push(cell);
-    }
+    const row = makeRow(colCount);
     table.push(row);
   }
 
   return table;
 };
 
-export { makeTable, calcColAvgs, calcRowTotals };
+const increaseTable = table => {
+  const cellCount = table[0].length;
+  const newRow = makeRow(cellCount);
+  const newTable = cloneDeep(table);
+  newTable.push(newRow);
+
+  return newTable;
+};
+
+export { makeTable, calcColAvgs, calcRowTotals, increaseTable };

@@ -1,6 +1,8 @@
 .Table-cell {
   border: 1px solid black;
   cursor: pointer;
+  transition: all 0.3s;
+  text-align: center;
 }
 .Table-cell-total {
   font-weight: bold;
@@ -9,4 +11,10 @@
 .Table-cell-avg {
   font-weight: bold;
   background-color: lightblue;
+}
+.Table-cell:hover {
+  background-color: yellow;
+}
+.Table-cell-closest {
+  background-color: yellowgreen;
 }

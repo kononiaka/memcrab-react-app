@@ -11,12 +11,30 @@ import {
   CLEAN_CLOSEST,
   DELETE_ROW,
   ADD_ROW,
+  SHOW_PERCENTAGE,
+  CLEAN_PERCENTAGE,
 } from "../actions/tableActions";
 import { cloneDeepWith, has } from "lodash";
 
+const getClosestIds = (table, count, id) => {
+  const cells = table.flat(Infinity);
+  const { amount } = cells.find(cell => cell.id === id);
+
+  const closest = cells
+    .filter(cell => cell.id !== id)
+    .sort((c1, c2) => {
+      const diff1 = Math.abs(amount - c1.amount);
+      const diff2 = Math.abs(amount - c2.amount);
+      return diff1 - diff2;
+    })
+    .slice(0, count)
+    .map(cell => cell.id);
+
+  return closest;
+};
+
 const initialState = {
-  rowsCount: 6,
-  colCount: 5,
+  showPercentageRowIndex: -1,
   closestCount: 5,
   closestIds: [],
   table: [],
@@ -27,11 +45,13 @@ const initialState = {
 const tableReducer = (state = initialState, action) => {
   switch (action.type) {
     case INIT_TABLE: {
-      const table = makeTable(state.rowsCount, state.colCount);
+      const { rowsCount, colsCount, closestCount } = action.payload;
+
+      const table = makeTable(rowsCount, colsCount);
       const rowTotals = calcRowTotals(table);
       const colAvgs = calcColAvgs(table);
 
-      return { ...state, table, rowTotals, colAvgs };
+      return { ...state, table, rowTotals, colAvgs, closestCount };
     }
 
     case INC_CELL: {
@@ -52,20 +72,10 @@ const tableReducer = (state = initialState, action) => {
     }
 
     case SHOW_CLOSEST: {
-      const targetId = action.payload;
+      const { table, closestCount } = state;
+      const id = action.payload;
 
-      const allCellsSorted = state.table
-        .flat(Infinity)
-        .sort((cell1, cell2) => cell1.amount - cell2.amount);
-
-      const targetCellIndex = allCellsSorted.findIndex(
-        ({ id }) => id === targetId
-      );
-      const startIndex = targetCellIndex + 1;
-      const endIndex = startIndex + state.closestCount;
-      const closestIds = allCellsSorted // TODO fix getting closest cells
-        .slice(startIndex, endIndex)
-        .map(({ id }) => id);
+      const closestIds = getClosestIds(table, closestCount, id);
 
       return { ...state, closestIds };
     }
@@ -86,6 +96,14 @@ const tableReducer = (state = initialState, action) => {
       const rowTotals = calcRowTotals(table);
       const colAvgs = calcColAvgs(table);
       return { ...state, table, colAvgs, rowTotals };
+    }
+
+    case SHOW_PERCENTAGE: {
+      const showPercentageRowIndex = action.payload;
+      return { ...state, showPercentageRowIndex };
+    }
+    case CLEAN_PERCENTAGE: {
+      return { ...state, showPercentageRowIndex: -1 };
     }
 
     default:

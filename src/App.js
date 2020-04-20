@@ -1,11 +1,13 @@
 import React from "react";
 import "./App.css";
-import Table from "./components/table/Table";
+import TableData from "./components/tableData/TableData";
 
 function App() {
   return (
     <div className="App">
-      <Table />
+      <div className="container">
+        <TableData />
+      </div>
     </div>
   );
 }

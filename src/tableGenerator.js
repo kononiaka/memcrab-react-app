@@ -40,7 +40,6 @@ const calcColAvgs = table => {
     colAvgs.push(avg);
   }
 
-  console.log(colAvgs);
   return colAvgs;
 };
 

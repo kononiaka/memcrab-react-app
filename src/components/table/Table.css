@@ -1,20 +1,45 @@
-.Table-cell {
-  border: 1px solid black;
-  cursor: pointer;
-  transition: all 0.3s;
-  text-align: center;
+button {
+  height: 25px;
+  width: 25px;
 }
-.Table-cell-total {
+
+.Table {
+  margin-top: 100px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.Table-total {
   font-weight: bold;
   background-color: coral;
+  cursor: pointer;
+  height: 60px;
+  width: 60px;
+  border-radius: 5%;
 }
-.Table-cell-avg {
+
+.Table-avg {
   font-weight: bold;
   background-color: lightblue;
+  height: 60px;
+  width: 60px;
+  border-radius: 5%;
 }
-.Table-cell:hover {
-  background-color: yellow;
+
+.Table-btn {
+  margin-left: 15px;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  border: none;
+  color: white;
 }
-.Table-cell-closest {
-  background-color: yellowgreen;
+
+.Table-btn-remove {
+  background-color: crimson;
+}
+
+.Table-btn-add {
+  background-color: forestgreen;
 }

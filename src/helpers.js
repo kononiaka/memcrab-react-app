@@ -16,6 +16,4 @@ const genID = (length = 10) => {
   return id;
 };
 
-
-
 export { randomInteger, genID };

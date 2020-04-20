@@ -1,0 +1,17 @@
+.Cell {
+  border: 1px solid black;
+  height: 60px;
+  width: 60px;
+  cursor: pointer;
+  transition: all 0.9s;
+  border-radius: 5%;
+}
+.Cell:hover {
+  background-color: yellow;
+}
+.Cell-closest {
+  background-color: yellowgreen;
+}
+.Cell-percent {
+  border-color: red;
+}

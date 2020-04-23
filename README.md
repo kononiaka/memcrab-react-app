@@ -17,6 +17,26 @@
 Дать возможность удалить строку с таблицы, при этом должны поменяться средние значения по каждому столбику
 Дать возможность добавить строку, фактически M + 1. При этом строка заполняется по всем правилам таблицы.
 
+//REQUIREMENTS 
+Task Frontend to work with objects
+Technical specifications
+Use react + redux
+Incoming parameters
+Numbers M, N, X
+Training
+Create matrix M \ * N (lines, columns)
+The value of the place of restraint is an object with a unique identifier ID and the number of Amount: int (3-digit random)
+Find the sum for each row M and the average for each column N
+Table output
+Output the resulting data into a table with good UX. In the main cells of the table, Amount is displayed, previously automatically generated, the sum on the M rows on the right, and the average on the N columns below.
+Cell dynamics
+When you click on a cell, increase the Amount value by 1 and accordingly change the average of this column and the sum of this row
+When hovering over a cell, highlight X cells whose Amount is closest to the Amount of the current cell.
+When hovering over a row’s sum of cells, it is necessary to replace the value of the cells with the percentage of their contribution to the total amount and add a background: a column that will clearly show the percentage. Actually paint over part of the cell.
+Row dynamics
+To enable the removal of a row from the table, while the average values ​​for each column should change
+Give the ability to add a row, in fact M + 1. In this case, the row is filled in according to all the rules of the table.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
